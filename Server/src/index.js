@@ -16,6 +16,7 @@ const receiptRoutes         = require("./routes/receipt.routes");
 const complaintAdminRoutes  = require("./routes/complaint.admin.routes");
 const notificationAdminRoutes = require("./routes/notification.admin.routes");
 const reportRoutes           = require("./routes/report.routes");
+const adminProfileRoutes     = require("./routes/admin.profile.routes");
 
 // ── User Routes ────────────────────────────────────────────────────
 const userMaintenanceRoutes  = require("./routes/user.maintenance.routes");
@@ -47,6 +48,7 @@ app.use("/api/admin/receipts",      receiptRoutes);
 app.use("/api/admin/complaints",    complaintAdminRoutes);
 app.use("/api/admin/notifications", notificationAdminRoutes);
 app.use("/api/admin/reports",       reportRoutes);
+app.use("/api/admin/profile",       adminProfileRoutes);
 
 // ── User APIs ──────────────────────────────────────────────────────
 app.use("/api/user/maintenance",    userMaintenanceRoutes);

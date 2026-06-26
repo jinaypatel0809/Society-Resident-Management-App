@@ -16,6 +16,7 @@ import AdminReceipts    from "./pages/admin/AdminReceipts";
 import AdminNotifications from "./pages/admin/AdminNotifications";
 import AdminComplaints  from "./pages/admin/AdminComplaints";
 import AdminReports     from "./pages/admin/AdminReports";
+import AdminSettings    from "./pages/admin/AdminSettings";
 import UserDashboard    from "./pages/user/UserDashboard";
 
 import AdminLayout from "./components/admin/AdminLayout";
@@ -57,7 +58,7 @@ export default function App() {
           <Route path="/admin/complaints"    element={<ProtectedRoute allowedRole="admin"><AdminComplaints /></ProtectedRoute>} />
           <Route path="/admin/notifications" element={<ProtectedRoute allowedRole="admin"><AdminNotifications /></ProtectedRoute>} />
           <Route path="/admin/reports"       element={<ProtectedRoute allowedRole="admin"><AdminReports /></ProtectedRoute>} />
-          <Route path="/admin/settings"      element={<ProtectedRoute allowedRole="admin"><ComingSoon title="Settings" /></ProtectedRoute>} />
+          <Route path="/admin/settings"      element={<ProtectedRoute allowedRole="admin"><AdminSettings /></ProtectedRoute>} />
 
           {/* User routes */}
           <Route path="/user/dashboard" element={<ProtectedRoute allowedRole="user"><UserDashboard /></ProtectedRoute>} />

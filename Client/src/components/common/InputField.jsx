@@ -11,6 +11,7 @@ export default function InputField({
   error,
   theme = "admin",  // 'admin' | 'resident'
   required = false,
+  disabled = false,
   rightLabel,
   onRightLabelClick,
 }) {
@@ -50,13 +51,14 @@ export default function InputField({
           value={value}
           onChange={onChange}
           required={required}
+          disabled={disabled}
           className={`
             w-full py-2.5 pr-10 text-sm bg-white border rounded-lg
             text-gray-800 placeholder-gray-400
             transition-all duration-150
             ${Icon ? "pl-9" : "pl-3"}
             ${borderErr}
-            ${focusClass}
+            ${disabled ? "bg-gray-50 text-gray-400 cursor-not-allowed" : focusClass}
           `}
         />
         {isPassword && (
