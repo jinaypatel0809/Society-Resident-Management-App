@@ -29,18 +29,27 @@ const app = express();
 
 // Middleware
 // CLIENT_URL can be a single origin or a comma-separated list (e.g. local dev + Vercel).
+// Trailing slashes are stripped so "https://x.vercel.app/" and "https://x.vercel.app" both match.
+const normalizeOrigin = (s) => s.trim().replace(/\/+$/, "");
+
 const allowedOrigins = (process.env.CLIENT_URL || "http://localhost:3000")
   .split(",")
-  .map((s) => s.trim())
+  .map(normalizeOrigin)
   .filter(Boolean);
+
+console.log("CORS allowed origins:", allowedOrigins);
 
 app.use(cors({
   origin: (origin, callback) => {
     // Allow requests with no origin (e.g. curl, server-to-server, mobile apps)
-    if (!origin || allowedOrigins.includes(origin)) {
+    if (!origin) return callback(null, true);
+
+    if (allowedOrigins.includes(normalizeOrigin(origin))) {
       return callback(null, true);
     }
-    callback(new Error(`Not allowed by CORS: ${origin}`));
+
+    console.warn(`CORS blocked origin: "${origin}" — allowed: ${allowedOrigins.join(", ")}`);
+    return callback(null, false); // reject without throwing, so headers/response stay well-formed
   },
   credentials: true,
 }));
