@@ -28,8 +28,20 @@ const notificationUserRoutes = require("./routes/notification.user.routes");
 const app = express();
 
 // Middleware
+// CLIENT_URL can be a single origin or a comma-separated list (e.g. local dev + Vercel).
+const allowedOrigins = (process.env.CLIENT_URL || "http://localhost:3000")
+  .split(",")
+  .map((s) => s.trim())
+  .filter(Boolean);
+
 app.use(cors({
-  origin: process.env.CLIENT_URL || "http://localhost:3000",
+  origin: (origin, callback) => {
+    // Allow requests with no origin (e.g. curl, server-to-server, mobile apps)
+    if (!origin || allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+    callback(new Error(`Not allowed by CORS: ${origin}`));
+  },
   credentials: true,
 }));
 app.use(express.json());
