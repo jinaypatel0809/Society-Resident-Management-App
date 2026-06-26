@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+@layer components {
+  /* Admin themed input focus ring */
+  .input-admin:focus {
+    @apply outline-none ring-2 ring-admin/30 border-admin;
+  }
+  /* Resident themed input focus ring */
+  .input-resident:focus {
+    @apply outline-none ring-2 ring-resident/30 border-resident;
+  }
+}
