@@ -20,6 +20,7 @@ import AdminSettings    from "./pages/admin/AdminSettings";
 import UserDashboard    from "./pages/user/UserDashboard";
 
 import AdminLayout from "./components/admin/AdminLayout";
+import HomePage     from "./pages/Home";
 
 function ComingSoon({ title }) {
   return (
@@ -41,7 +42,7 @@ export default function App() {
       <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
         <Toaster position="top-right" toastOptions={{ style: { borderRadius: "12px", fontSize: "14px" }, duration: 3000 }} />
         <Routes>
-          <Route path="/" element={<Navigate to="/signup" replace />} />
+          <Route path="/" element={<HomePage />} />
 
           <Route path="/signin"       element={<PublicOnlyRoute><UserSignIn /></PublicOnlyRoute>} />
           <Route path="/signup"       element={<PublicOnlyRoute><UserSignUp /></PublicOnlyRoute>} />
