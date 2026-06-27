@@ -27,7 +27,6 @@ const notificationUserRoutes = require("./routes/notification.user.routes");
 
 const app = express();
 
-// Middleware
 // CLIENT_URL can be a single origin or a comma-separated list (e.g. local dev + Vercel).
 // Trailing slashes are stripped so "https://x.vercel.app/" and "https://x.vercel.app" both match.
 const normalizeOrigin = (s) => s.trim().replace(/\/+$/, "");
@@ -41,15 +40,23 @@ console.log("CORS allowed origins:", allowedOrigins);
 
 app.use(cors({
   origin: (origin, callback) => {
-    // Allow requests with no origin (e.g. curl, server-to-server, mobile apps)
+    // Allow requests with no origin (e.g. curl, server-to-server, Postman, mobile apps)
     if (!origin) return callback(null, true);
 
-    if (allowedOrigins.includes(normalizeOrigin(origin))) {
+    const normalized = normalizeOrigin(origin);
+
+    // Exact match
+    if (allowedOrigins.includes(normalized)) {
+      return callback(null, true);
+    }
+
+    // Allow any vercel.app subdomain (covers preview deployments automatically)
+    if (normalized.endsWith(".vercel.app")) {
       return callback(null, true);
     }
 
     console.warn(`CORS blocked origin: "${origin}" — allowed: ${allowedOrigins.join(", ")}`);
-    return callback(null, false); // reject without throwing, so headers/response stay well-formed
+    return callback(null, false);
   },
   credentials: true,
 }));
