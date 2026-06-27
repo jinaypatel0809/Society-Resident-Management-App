@@ -330,16 +330,6 @@ export default function AdminDashboard() {
             </p>
           </div>
         </div>
-        <button
-          onClick={handleReminder}
-          disabled={sending || loading}
-          className="bg-admin-gold hover:opacity-90 text-admin-dark font-semibold
-            text-sm px-5 py-2.5 rounded-xl transition-all shrink-0 flex items-center gap-2 disabled:opacity-60">
-          {sending
-            ? <Loader2 size={14} className="animate-spin" />
-            : <Bell size={14} />}
-          {sending ? "Sending…" : "Send Reminder"}
-        </button>
       </div>
 
     </AdminLayout>
